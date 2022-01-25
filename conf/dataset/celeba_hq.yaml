@@ -1,0 +1,34 @@
+path: /opt/project/data1024x1024
+batch_size: ???
+alpha: 5
+train:
+  name: celeba_hq
+  batch_size: ???
+  drop_last: True
+  
+  preprocess:
+    - type: tensor
+    - type: randomresizecrop
+      params:
+        size: 256
+        scale: [0.75, 1.0]
+    # - type: horizontal
+    - type: normalize
+      params:
+        mean: [0.5]
+        std: [0.5]
+
+test:
+  name: celeba_hq
+  batch_size: ???
+  drop_last: False
+
+  preprocess:
+    - type: tensor
+    - type: resize
+      params:
+        size: 256
+    - type: normalize
+      params:
+        mean: [0.5]
+        std: [0.5]

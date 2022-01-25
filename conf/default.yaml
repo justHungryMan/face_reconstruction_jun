@@ -1,0 +1,28 @@
+defaults:
+  - _self_
+  - architecture: unet.yaml
+  - dataset: celeba_hq.yaml
+  - loss: ce.yaml
+  - optimizer: adam.yaml
+  - scheduler: CosineAnnealingLR.yaml
+  # - override scheduler/warmup: gradualwarmup
+
+  - experiment: example.yaml
+
+  - override hydra/job_logging: colorlog
+  - override hydra/hydra_logging: colorlog
+
+  
+base:
+  world_size: 1
+  use_amp: True
+  mode: train_eval
+  env:
+    mode: gpu
+  seed: '0xC0FFEE'
+  save_dir: /workspace/kaggle/kaggle-template/results
+  debug: True
+  resume: True
+
+MASTER_ADDR: '127.0.0.1'
+MASTER_PORT: '9090'

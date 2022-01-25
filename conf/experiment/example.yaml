@@ -1,0 +1,29 @@
+# @package _global_
+
+# to execute this experiment run:
+# python run.py experiment=example.yaml
+
+defaults:
+  - override /architecture: unet.yaml
+  - override /dataset: celeba_hq.yaml
+  - override /loss: ce.yaml
+  - override /optimizer: adam.yaml
+  - override /scheduler: CosineAnnealingLR.yaml
+  - override /scheduler/warmup: gradualwarmup.yaml
+
+dataset:
+  batch_size: 32
+  epochs: 90
+  alpha: 5
+  train:
+    batch_size: ${dataset.batch_size}
+  test:
+    batch_size: ${dataset.batch_size}
+
+optimizer:
+  params:
+    lr: 0.001
+
+scheduler:
+  params:
+    T_max: ${dataset.epochs}
